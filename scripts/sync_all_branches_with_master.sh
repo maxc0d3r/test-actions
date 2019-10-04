@@ -9,7 +9,8 @@ do
   then
     git checkout $BRANCH
     git merge origin/master $BRANCH
-    git push origin $BRANCH
+    git remote add tmp_origin git@github.com:maxc0d3r/test-actions.git
+    git push tmp_origin $BRANCH
   fi
 done
 
