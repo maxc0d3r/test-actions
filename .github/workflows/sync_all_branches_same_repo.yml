@@ -20,4 +20,6 @@ jobs:
         eval "$(ssh-agent -s)"
         ssh-add - <<< "${DEPLOY_KEY}"
     - name: Sync all branches
+      env:
+        GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
       run: scripts/sync_all_branches_with_master.sh
