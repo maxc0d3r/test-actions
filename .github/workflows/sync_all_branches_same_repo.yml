@@ -1,0 +1,12 @@
+name: Sync all branches with master branch in same repository
+on:
+  push:
+    branches:
+      - master
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - run: bash scripts/sync_all_branches_with_master.sh
+
