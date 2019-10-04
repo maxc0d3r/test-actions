@@ -1,9 +1,12 @@
 #!/bin/bash
 
-x=`ls .git/refs/remotes/origin/`
-echo $x
-for BRANCH in $(git branch | grep -v 'master')
+for BRANCH in $(ls .git/refs/remotes/origin/)
 do
-  echo "Branch: $BRANCH"
+  if [ $BRANCH != 'master' ]
+  then
+    git checkout $BRANCH
+    git merge origin/master $BRANCH
+    git push origin $BRANCH
+  fi
 done
 
