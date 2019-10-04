@@ -3,6 +3,6 @@
 git fetch --all
 for BRANCH in $(git branch | grep -v 'master')
 do
-  echo $BRANCH
+  echo "Branch: $BRANCH"
 done
 
