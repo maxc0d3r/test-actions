@@ -1,6 +1,6 @@
 #!/bin/bash
 
-x=`git branch`
+x=`ls .git/refs/remotes/origin/`
 echo $x
 for BRANCH in $(git branch | grep -v 'master')
 do
