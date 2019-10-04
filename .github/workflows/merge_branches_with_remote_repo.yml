@@ -2,7 +2,8 @@ name: Sync all branches with master branch in same repository
 on:
   push:
     branches:
-      - [a,b]
+      - a
+      - b
 jobs:
   remote-sync:
     runs-on: ubuntu-latest
