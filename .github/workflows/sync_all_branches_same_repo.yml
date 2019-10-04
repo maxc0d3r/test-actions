@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - run: scripts/sync_all_branches_with_master.sh
+    - run: git branch
 
