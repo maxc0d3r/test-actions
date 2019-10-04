@@ -7,6 +7,8 @@ jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 2147483647
     - run: scripts/sync_all_branches_with_master.sh
 
