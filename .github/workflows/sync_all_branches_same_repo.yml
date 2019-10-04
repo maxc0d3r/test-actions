@@ -7,8 +7,15 @@ jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout code
+      uses: actions/checkout@v1
       with:
         fetch-depth: 2147483647
-    - run: scripts/sync_all_branches_with_master.sh
-
+    - name: Setup github ssh-key
+      env:
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+      run: |
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< "${DEPLOY_KEY}"
+    - name: Sync all branches
+      run: scripts/sync_all_branches_with_master.sh
