@@ -9,17 +9,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v1
-      with:
-        fetch-depth: 2147483647
-    - name: Check remote
-      run: git remote -v
-    - name: Setup github ssh-key
-      env:
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-      run: |
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< "${DEPLOY_KEY}"
     - name: Sync all branches
+      uses: repo-sync/github-sync@v2
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: scripts/sync_all_branches_with_master.sh
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+      with:
+        source_repo: "git@github.com:maxc0d3r/test-actions.git"
+        source_branch: "master"
+        destination_branch: "*"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
