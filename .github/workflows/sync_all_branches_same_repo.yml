@@ -13,13 +13,14 @@ jobs:
         fetch-depth: 2147483647
     - name: Check remote
       run: git remote -v
-    - name: Setup github ssh-key
+    - name: Setup github ssh-key and execute script
       env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-      run: |
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< "${DEPLOY_KEY}"
-    - name: Sync all branches
-      env:
         GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
-      run: scripts/sync_all_branches_with_master.sh
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        ssh-add - <<< "${DEPLOY_KEY}"
+        scripts/sync_all_branches_with_master.sh
