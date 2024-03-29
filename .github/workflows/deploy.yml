@@ -20,9 +20,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           instance-ids: ${{ secrets.INSTANCE_ID }}
 
-          working-directory: /var/www/html
-          command: ls -al
-          comment: Hello world!
+          working-directory: /tmp/test-actions
+          command: git pull
+          comment: Updated code!
 
       # Catch SSM outputs
       - name: Get the outputs
